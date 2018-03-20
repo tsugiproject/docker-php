@@ -1,7 +1,7 @@
 
 # Tsugi plus mysql
 # docker build --tag tsugi_dev .
-# docker run -p 8080:80 -p 3306:3306 -e TSUGI_SERVICENAE=TSFUN -dit tsugi_dev:latest
+# docker run -p 8080:80 -p 3306:3306 -e TSUGI_SERVICENAME=TSFUN -dit tsugi_dev:latest
 
 # docker attach d37...
 
