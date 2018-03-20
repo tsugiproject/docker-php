@@ -35,5 +35,11 @@ mv /var/www/html/config.php /var/www/html/tsugi
 cd /var/www/html/tsugi/admin
 php upgrade.php
 
+# Make git work from the browser
+cp /usr/bin/git /usr/local/bin/gitx
+chown www-data:www-data /usr/local/bin/gitx
+chmod a+s /usr/local/bin/gitx
+chown -R www-data:www-data /var/www/html/tsugi
+
 exec "$@"
 
