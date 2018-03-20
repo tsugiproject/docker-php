@@ -1,9 +1,7 @@
 
 # Tsugi plus mysql
 # docker build --tag tsugi_mysql .
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit d3e979c9935d
-
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -v /var/lib/mysql -dit d3e979c9935d
+# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit tsugi_mysql:latest
 
 # mysql -u root --host=127.0.0.1 --port=3306 -p
 
@@ -11,7 +9,7 @@
 
 FROM tsugi_base:latest
 
-COPY tsugi-startup.sh /usr/local/bin
+COPY tsugi-mysql-startup.sh /usr/local/bin
 
 # Install.
 RUN \
@@ -40,7 +38,7 @@ ENV HOME /root
 WORKDIR /root
 
 EXPOSE 80 443 3306
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-mysql-startup.sh"]
 
 # Define default command.
 CMD ["bash"]

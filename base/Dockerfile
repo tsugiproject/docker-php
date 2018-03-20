@@ -1,8 +1,11 @@
-#
-# Ubuntu Dockerfile
-#
-# https://github.com/dockerfile/ubuntu
-#
+
+# Tsugi base PHP docker
+
+# docker build --tag tsugi_base .
+# docker images
+# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit d3e979c9935d
+# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit tsugi_base:latest
+
 
 # Pull base image.
 FROM ubuntu:14.04

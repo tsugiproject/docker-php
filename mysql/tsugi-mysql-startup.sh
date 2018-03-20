@@ -1,6 +1,6 @@
 echo "Running Startup"
 
-/usr/sbin/apachectl start
+bash /usr/local/bin/tsugi-base-startup.sh echo base done
 
 # Mysql
 # sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
