@@ -15,7 +15,7 @@ ini_set('include_path', $fullpath);
 require_once("config-dist.php");
 $CFG->apphome   = false;
 if ( isset($_SERVER['HTTP_HOST']) ) {
-    $CFG->wwwroot   = "http://" . $_SERVER['HTTP_HOST'];
+    $CFG->wwwroot   = "http://" . $_SERVER['HTTP_HOST'] . '/tsugi';
 }
 
 if ( strlen(getenv('TSUGI_WWWROOT')) > 0 ) {

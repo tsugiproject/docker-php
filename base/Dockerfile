@@ -2,10 +2,11 @@
 # Tsugi base PHP docker
 
 # docker build --tag tsugi_base .
-# docker images
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit d3e979c9935d
 # docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit tsugi_base:latest
 
+# To redo
+# docker container prune
+# docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest
 
 # Pull base image.
 FROM ubuntu:14.04
@@ -43,6 +44,8 @@ RUN \
   apt-get install -y php7.2-intl && \
   apt-get install -y mysql-client && \
   apt-get install -y nfs-common && \
+  a2enmod -q rewrite dir expires headers && \
+  phpenmod mysqlnd pdo_mysql intl && \
   echo ======= Installing Postfix && \
   echo "postfix postfix/mailname string example.com" | debconf-set-selections &&\
   echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections &&\
