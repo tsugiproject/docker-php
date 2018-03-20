@@ -22,6 +22,10 @@ with all of the pieces running on one server.
     $ docker run -p 8080:80 -p 3306:3306 -e TSUGI_SERVICENAME=TSFUN -dit tsugi_dev:latest
     73c3700527470dc10f58b3e6b2a8837b22d3d2b6790cb70346b02a8a64d3ce21
 
+Navigate to http://localhost:8080/
+
+To log in and look around, use:
+
     $ docker attach 73c3700527470dc10f58b3e6b2a8837b22d3d2b6790cb70346b02a8a64d3ce21
     (press Enter)
     root@73c370052747:/var/www/html/tsugi/admin# 
