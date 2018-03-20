@@ -1,37 +1,19 @@
 
 # Tsugi plus mysql
-# docker build --tag tsugi_mysql .
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -dit d3e979c9935d
+# docker build --tag tsugi_dev .
+# docker run -p 8080:80 -p 3306:3306 -e TSUGI_SERVICENAE=TSFUN -dit tsugi_dev:latest
 
-# docker run -p 8080:80 -p 3306:3306 -e BOB=42 -v /var/lib/mysql -dit d3e979c9935d
+# docker attach d37...
 
-# mysql -u root --host=127.0.0.1 --port=3306 -p
-
-# See: https://gist.github.com/sheikhwaqas/9088872 
+# To re-generate
+# docker container prune
+# docker image rm tsugi_dev:latest
 
 FROM tsugi_mysql:latest
 
-COPY dev-startup.sh /usr/local/bin
+COPY tsugi-dev-startup.sh /usr/local/bin
 
-# Install.
-RUN \
-  export DEBIAN_FRONTEND=noninteractive && \
-  export LC_ALL=C.UTF-8 && \
-  echo ======= Update 1 && \
-  apt-get update && \
-  echo ======= Install MySQL && \
-  echo "mysql-server-5.5 mysql-server/root_password password root" | sudo debconf-set-selections && \
-  echo "mysql-server-5.5 mysql-server/root_password_again password root" | sudo debconf-set-selections &&\
-  apt-get -y install mysql-server-5.5 && \
-  # echo ======= Securing Installation && \
-  # echo -e "root\nn\nY\nY\nY\nY\n" | mysql_secure_installation && \
-  echo ======= Cleanup Starting && \
-  df && \
-  rm -rf /var/lib/apt/lists/* && \
-  df && \
-  echo ======= Cleanup Done 
-
-#  apt-get install -y mailutils
+COPY ./www ./www
 
 # Set environment variables.
 ENV HOME /root
@@ -40,7 +22,7 @@ ENV HOME /root
 WORKDIR /root
 
 EXPOSE 80 443 3306
-ENTRYPOINT ["bash", "/usr/local/bin/tsugi-startup.sh"]
+ENTRYPOINT ["bash", "/usr/local/bin/tsugi-dev-startup.sh"]
 
 # Define default command.
 CMD ["bash"]
