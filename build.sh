@@ -1,6 +1,15 @@
 #! /bin/bash
 
-docker image rm --force tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest > /dev/null 2>&1
+echo "Stopping containers..."
+docker stop $(docker ps -aq) > /dev/null 2>&1
+
+echo "Cleaning up containers..."
+docker rm $(docker ps -aq) > /dev/null 2>&1
+
+echo "Cleaning up images..."
+docker rmi $(docker images -q | grep tsugi) > /dev/null 2>&1
+
+echo "Building images..."
 cd base
 docker build --tag tsugi_base .
 cd ../mysql
