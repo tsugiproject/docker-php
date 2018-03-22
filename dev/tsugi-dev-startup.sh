@@ -32,6 +32,13 @@ git clone https://github.com/tsugiproject/tsugi.git
 mv /root/www/* /var/www/html
 mv /var/www/html/config.php /var/www/html/tsugi
 
+# Seed with a few tools
+cd /var/www/html/tsugi/mod
+git clone https://github.com/tsugitools/youtube
+git clone https://github.com/tsugitools/attend
+git clone https://github.com/tsugitools/cats
+
+# Create the tables
 cd /var/www/html/tsugi/admin
 php upgrade.php
 
