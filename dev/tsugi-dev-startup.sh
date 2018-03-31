@@ -48,12 +48,19 @@ chown www-data:www-data /usr/local/bin/gitx
 chmod a+s /usr/local/bin/gitx
 chown -R www-data:www-data /var/www/html/tsugi
 
+echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi dev Returning..."
-else
-  echo "Tsugi dev Executing " $@
-  exec "$@"
-  echo "Tsugi dev Dropping to shell.." $@
-  exec bash
+  echo "Tsugi Dev Returning..."
+  exit
 fi
 
+# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
+if [ -n "$WAIT_FOREVER" ] ; then
+  echo "Tsugi Dev Sleeping forever..."
+  while :; do sleep 2073600; done
+fi
+
+echo "Tsugi Dev Executing " $@
+exec "$@"
+echo "Tsugi Dev Dropping to shell.." $@
+exec bash

@@ -11,12 +11,19 @@ chmod -R ug+rw /var/lib/mysql
 chown -R mysql:mysql /var/lib/mysql
 service mysql start
 
+echo ""
 if [ "$@" == "return" ] ; then
   echo "Tsugi MySQL Returning..."
-else
-  echo "Tsugi MySQL Executing " $@
-  exec "$@"
-  echo "Tsugi MySQL Dropping to shell.." $@
-  exec bash
+  exit
 fi
 
+# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
+if [ -n "$WAIT_FOREVER" ] ; then
+  echo "Tsugi MySQL Sleeping forever..."
+  while :; do sleep 2073600; done
+fi
+
+echo "Tsugi MySQL Executing " $@
+exec "$@"
+echo "Tsugi MySQL Dropping to shell.." $@
+exec bash
