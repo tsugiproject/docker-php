@@ -1,6 +1,6 @@
-echo "Running Startup"
+echo "Running dev Startup"
 
-bash /usr/local/bin/tsugi-mysql-startup.sh echo Mysql done
+bash /usr/local/bin/tsugi-mysql-startup.sh return
 
 rm -rf /var/www/html/phpMyAdmin
 cd /root
@@ -48,5 +48,12 @@ chown www-data:www-data /usr/local/bin/gitx
 chmod a+s /usr/local/bin/gitx
 chown -R www-data:www-data /var/www/html/tsugi
 
-exec "$@"
+if [ "$@" == "return" ] ; then
+  echo "Tsugi dev Returning..."
+else
+  echo "Tsugi dev Executing " $@
+  exec "$@"
+  echo "Tsugi dev Dropping to shell.." $@
+  exec bash
+fi
 

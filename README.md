@@ -36,4 +36,9 @@ not just any shell).  If you attach too quickly you will see the output
 of the ENTRYPOINT script - once it finishes you will get a command line
 prompt.
 
+Cleaning up
+
+    docker container prune
+    docker image prune
+
 
