@@ -38,6 +38,7 @@ prompt.
 
 Cleaning up
 
+    docker stop 73c3700527470dc10f58b3e6b2a8837b22d3d2b6790cb70346b02a8a64d3ce21
     docker container prune
     docker image prune
 
