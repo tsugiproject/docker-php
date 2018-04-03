@@ -11,7 +11,7 @@
 # Pull base image.
 FROM ubuntu:14.04
 
-COPY tsugi-base-startup.sh /usr/local/bin
+COPY monitor-apache.sh tsugi-base-startup.sh /usr/local/bin/
 
 # Install.
 RUN \
@@ -73,5 +73,5 @@ WORKDIR /root
 EXPOSE 80 443
 ENTRYPOINT ["bash", "/usr/local/bin/tsugi-base-startup.sh"]
 
-# Define default command.
+# Define default command.  (Should never get here)
 CMD ["bash"]

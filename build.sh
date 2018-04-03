@@ -11,9 +11,11 @@ docker rmi $(docker images -q | grep tsugi) > /dev/null 2>&1
 
 echo "Building images..."
 cd base
-docker build --tag tsugi_base .
+docker build --tag tsugi_base --squash .
+cd ../kube
+docker build --tag tsugi_kube --squash .
 cd ../mysql
-docker build --tag tsugi_mysql .
+docker build --tag tsugi_mysql --squash .
 cd ../dev
-docker build --tag tsugi_dev .
+docker build --tag tsugi_dev --squash .
 

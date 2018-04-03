@@ -50,17 +50,13 @@ chown -R www-data:www-data /var/www/html/tsugi
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi Dev Returning..."
+  echo "Tsugi Base Returning..."
   exit
 fi
 
-# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
-if [ -n "$WAIT_FOREVER" ] ; then
-  echo "Tsugi Dev Sleeping forever..."
-  while :; do sleep 2073600; done
-fi
+exec bash /usr/local/bin/monitor-apache.sh
 
-echo "Tsugi Dev Executing " $@
-exec "$@"
-echo "Tsugi Dev Dropping to shell.." $@
-exec bash
+# Should never happen
+# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
+echo "Tsugi Base Sleeping forever..."
+while :; do sleep 2073600; done

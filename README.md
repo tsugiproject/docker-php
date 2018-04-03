@@ -26,15 +26,8 @@ Navigate to http://localhost:8080/
 
 To log in and look around, use:
 
-    $ docker attach 73c3700527470dc10f58b3e6b2a8837b22d3d2b6790cb70346b02a8a64d3ce21
-    (press Enter)
+    $ docker exec -it 73c...e21 bash
     root@73c370052747:/var/www/html/tsugi/admin# 
-
-Make sure to detatch with `CTRL-P` `CTRL-Q` sequence rather than `CTRL-D`
-since that shuts down the container sice `attach` connects to PID 1 (i.e.
-not just any shell).  If you attach too quickly you will see the output 
-of the ENTRYPOINT script - once it finishes you will get a command line
-prompt.
 
 Cleaning up
 
@@ -42,4 +35,6 @@ Cleaning up
     docker container prune
     docker image prune
 
+To built one image
 
+    docker build --tag tsugi_base .

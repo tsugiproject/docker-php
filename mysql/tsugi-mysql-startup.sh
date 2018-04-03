@@ -13,17 +13,14 @@ service mysql start
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi MySQL Returning..."
+  echo "Tsugi Base Returning..."
   exit
 fi
 
-# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
-if [ -n "$WAIT_FOREVER" ] ; then
-  echo "Tsugi MySQL Sleeping forever..."
-  while :; do sleep 2073600; done
-fi
+exec bash /usr/local/bin/monitor-apache.sh
 
-echo "Tsugi MySQL Executing " $@
-exec "$@"
-echo "Tsugi MySQL Dropping to shell.." $@
-exec bash
+# Should never happen
+# https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
+echo "Tsugi Base Sleeping forever..."
+while :; do sleep 2073600; done
+
