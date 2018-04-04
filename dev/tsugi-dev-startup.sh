@@ -26,23 +26,26 @@ mysql -u root --password=root << EOF
     GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';
 EOF
 
-cd /var/www/html/
-git clone https://github.com/tsugiproject/tsugi.git
+# This might be a read-write volume from before
+if [ ! -d /var/www/html/tsugi/.git ]; then
+  cd /var/www/html/
+  git clone https://github.com/tsugiproject/tsugi.git
 
-# Make sure FETCH_HEAD and ORIG_HEAD are created
-cd /var/www/html/tsugi
-git pull
+  # Make sure FETCH_HEAD and ORIG_HEAD are created
+  cd /var/www/html/tsugi
+  git pull
 
-mv /root/www/* /var/www/html
-mv /var/www/html/config.php /var/www/html/tsugi
+  # Seed with a few tools
+  cd /var/www/html/tsugi/mod
+  git clone https://github.com/tsugitools/youtube
+  git clone https://github.com/tsugitools/attend
+  git clone https://github.com/tsugitools/cats
 
-# Seed with a few tools
-cd /var/www/html/tsugi/mod
-git clone https://github.com/tsugitools/youtube
-git clone https://github.com/tsugitools/attend
-git clone https://github.com/tsugitools/cats
+  mv /root/www/* /var/www/html
+  mv /var/www/html/config.php /var/www/html/tsugi
+fi
 
-# Create the tables
+# Create/update the tables
 cd /var/www/html/tsugi/admin
 php upgrade.php
 
