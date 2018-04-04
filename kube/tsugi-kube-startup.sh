@@ -5,6 +5,11 @@ bash /usr/local/bin/tsugi-base-startup.sh return
 cd /var/www/html/
 git clone https://github.com/tsugiproject/tsugi.git
 
+# Make sure FETCH_HEAD and ORIG_HEAD are created
+cd /var/www/html/tsugi
+git pull
+
+
 mv /root/www/* /var/www/html
 mv /var/www/html/config.php /var/www/html/tsugi
 
