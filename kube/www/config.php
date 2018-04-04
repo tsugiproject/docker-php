@@ -23,13 +23,13 @@ if ( strlen(getenv('TSUGI_WWWROOT')) > 0 ) {
 }
 
 if ( strlen(getenv('TSUGI_PDO')) > 0 ) {
-  $CFG->pdo = getenv('MYSQL_PDO');
+  $CFG->pdo = getenv('TSUGI_PDO');
 }
 if ( strlen(getenv('TSUGI_USER')) > 0 ) {
-    $CFG->dbuser    = getenv('MYSQL_USER');
+    $CFG->dbuser    = getenv('TSUGI_USER');
 }
 if ( strlen(getenv('TSUGI_PASSWORD')) > 0 ) {
-    $CFG->dbpass    = getenv('MYSQL_PASSWORD');
+    $CFG->dbpass    = getenv('TSUGI_PASSWORD');
 }
 
 // tsugi is the admin pw
