@@ -29,6 +29,19 @@ EOF
 # This might be a read-write volume from before
 if [ ! -d /var/www/html/tsugi/.git ]; then
   cd /var/www/html/
+  if [ -n "$MAIN_REPO" ] ; then
+    echo Cloning $MAIN_REPO
+    git clone $MAIN_REPO site
+  else
+    echo Cloning default repo
+    git clone https://github.com/tsugicloud/dev-jekyll-site.git site
+  fi
+  cd site
+  mv .git* * ..
+  cd ..
+  rm -r site 
+
+  cd /var/www/html/
   git clone https://github.com/tsugiproject/tsugi.git
 
   # Make sure FETCH_HEAD and ORIG_HEAD are created
@@ -41,8 +54,8 @@ if [ ! -d /var/www/html/tsugi/.git ]; then
   git clone https://github.com/tsugitools/attend
   git clone https://github.com/tsugitools/cats
 
-  mv /root/www/* /var/www/html
-  mv /var/www/html/config.php /var/www/html/tsugi
+  mv /root/www/info.php /var/www/html
+  mv /root/www/config.php /var/www/html/tsugi
 fi
 
 # Create/update the tables
