@@ -19,8 +19,13 @@ else
   exit
 fi
 
+if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+ROOT_PASS=root
+else
+ROOT_PASS=$MYSQL_ROOT_PASSWORD
+fi  
 
-mysql -u root --password=root << EOF
+mysql -u root --password=$ROOT_PASS << EOF
     CREATE DATABASE tsugi DEFAULT CHARACTER SET utf8;
     GRANT ALL ON tsugi.* TO 'ltiuser'@'localhost' IDENTIFIED BY 'ltipassword';
     GRANT ALL ON tsugi.* TO 'ltiuser'@'127.0.0.1' IDENTIFIED BY 'ltipassword';

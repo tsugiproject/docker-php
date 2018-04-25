@@ -22,6 +22,10 @@ if ( strlen(getenv('TSUGI_WWWROOT')) > 0 ) {
     $CFG->wwwroot = getenv('TSUGI_WWWROOT');
 }
 
+if ( strlen(getenv('TSUGI_APPHOME')) > 0 ) {
+    $CFG->apphome = getenv('TSUGI_APPHOME');
+}
+
 if ( strlen(getenv('TSUGI_PDO')) > 0 ) {
   $CFG->pdo = getenv('TSUGI_PDO');
 }

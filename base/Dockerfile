@@ -11,8 +11,6 @@
 # Pull base image.
 FROM ubuntu:14.04
 
-COPY monitor-apache.sh tsugi-base-startup.sh /usr/local/bin/
-
 # Install.
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
@@ -62,6 +60,10 @@ RUN \
   echo ======= Cleanup Done 
 
 #  apt-get install -y mailutils
+
+# Setup files
+COPY monitor-apache.sh tsugi-base-startup.sh /usr/local/bin/
+COPY apache2.conf /etc/apache2
 
 # Set environment variables.
 ENV HOME /root
