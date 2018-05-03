@@ -1,4 +1,4 @@
-echo "Running dev Startup"
+echo "Running Kube Startup"
 
 bash /usr/local/bin/tsugi-base-startup.sh return
 
@@ -32,7 +32,7 @@ fi
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi Base Returning..."
+  echo "Tsugi Kube Returning..."
   exit
 fi
 
@@ -40,5 +40,5 @@ exec bash /usr/local/bin/monitor-apache.sh
 
 # Should never happen
 # https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
-echo "Tsugi Base Sleeping forever..."
+echo "Tsugi Kube Sleeping forever..."
 while :; do sleep 2073600; done

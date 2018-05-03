@@ -1,9 +1,26 @@
 echo "Running Base Startup"
 
+# sanity check in case Docker went wrong with freshly mounted html folder
+if [ -d "/var/www/html" ] ; then
+    echo "Normal case: /var/www/html is a directory";
+else
+    if [ -f "/var/www/html" ]; then
+        echo "OOPS /var/www/html is a file";
+        rm -f /var/www/html
+        mkdir /var/www/html
+        echo "<h1>Test Page</h1>" > /var/www/html/index.html
+    else
+        echo "OOPS /var/www/html is not there";
+        rm -f /var/www/html
+        mkdir /var/www/html
+        echo "<h1>Test Base Page</h1>" > /var/www/html/index.html
+    fi
+fi
+
 /usr/sbin/apachectl start
 
 echo "Environment variables:"
-env
+env | sort
 
 echo ""
 if [ "$@" == "return" ] ; then

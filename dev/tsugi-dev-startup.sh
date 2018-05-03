@@ -2,6 +2,23 @@ echo "Running dev Startup"
 
 bash /usr/local/bin/tsugi-mysql-startup.sh return
 
+# sanity check in case Docker went wrong with freshly mounted html folder
+if [ -d "/var/www/html" ] ; then
+    echo "Normal case: /var/www/html is a directory";
+else
+    if [ -f "/var/www/html" ]; then
+        echo "OOPS /var/www/html is a file";
+        rm -f /var/www/html
+        mkdir /var/www/html
+        echo "<h1>Test Page</h1>" > /var/www/html/index.html
+    else
+        echo "OOPS /var/www/html is not there";
+        rm -f /var/www/html
+        mkdir /var/www/html
+        echo "<h1>Test Dev Page</h1>" > /var/www/html/index.html
+    fi
+fi
+
 rm -rf /var/www/html/phpMyAdmin
 cd /root
 curl -O https://files.phpmyadmin.net/phpMyAdmin/4.7.9/phpMyAdmin-4.7.9-all-languages.zip
@@ -34,6 +51,7 @@ EOF
 # This might be a read-write volume from before
 if [ ! -d /var/www/html/tsugi/.git ]; then
   cd /var/www/html/
+  rm /var/www/html/index.html
   if [ -n "$MAIN_REPO" ] ; then
     echo Cloning $MAIN_REPO
     git clone $MAIN_REPO site
@@ -75,7 +93,7 @@ chown -R www-data:www-data /var/www/html/tsugi
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi Base Returning..."
+  echo "Tsugi Dev Returning..."
   exit
 fi
 
@@ -83,5 +101,5 @@ exec bash /usr/local/bin/monitor-apache.sh
 
 # Should never happen
 # https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
-echo "Tsugi Base Sleeping forever..."
+echo "Tsugi Dev Sleeping forever..."
 while :; do sleep 2073600; done

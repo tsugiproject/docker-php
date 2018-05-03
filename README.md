@@ -19,7 +19,7 @@ with all of the pieces running on one server.
     tsugi_base          latest              b7199f92080c        3 minutes ago       585MB
     ubuntu              14.04               a35e70164dfb        13 days ago         222MB
 
-    $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -dit tsugi_dev:latest
+    $ docker run -p 8080:80 -e TSUGI_SERVICENAME=TSFUN -e MYSQL_ROOT_PASSWORD=secret -dit tsugi_dev:latest
     73c3700527470dc10f58b3e6b2a8837b22d3d2b6790cb70346b02a8a64d3ce21
 
 Navigate to http://localhost:8080/

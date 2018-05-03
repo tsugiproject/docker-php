@@ -16,16 +16,16 @@ if [ ! -f /var/lib/mysql/mysql ]; then
     echo Re-initializing the mysql database
     mysql_install_db --user=mysql --ldata=/var/lib/mysql
 fi
+echo Starting mysql
 service mysql start
-if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
-    /usr/bin/mysqladmin -u root password 'root'
-else
-    /usr/bin/mysqladmin -u root password '$MYSQL_ROOT_PASSWORD'
+if [ -n "$MYSQL_ROOT_PASSWORD" ]; then
+    echo "Setting mysql root password to $MYSQL_ROOT_PASSWORD"
+    /usr/bin/mysqladmin -u root --password=root password "$MYSQL_ROOT_PASSWORD"
 fi  
 
 echo ""
 if [ "$@" == "return" ] ; then
-  echo "Tsugi Base Returning..."
+  echo "Tsugi MySQL Startup Returning..."
   exit
 fi
 
@@ -33,6 +33,6 @@ exec bash /usr/local/bin/monitor-apache.sh
 
 # Should never happen
 # https://stackoverflow.com/questions/2935183/bash-infinite-sleep-infinite-blocking
-echo "Tsugi Base Sleeping forever..."
+echo "Tsugi MySql Sleeping forever..."
 while :; do sleep 2073600; done
 
