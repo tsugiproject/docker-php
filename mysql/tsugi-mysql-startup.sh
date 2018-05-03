@@ -15,13 +15,21 @@ chown -R mysql:mysql /var/lib/mysql
 if [ ! -f /var/lib/mysql/mysql ]; then
     echo Re-initializing the mysql database
     mysql_install_db --user=mysql --ldata=/var/lib/mysql
+
+    echo Starting mysql
+    service mysql start
+    # Note this is different than in the AMI since it is 100% fresh
+    if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+        echo "Setting mysql root password to default pw"
+        /usr/bin/mysqladmin -u root password root
+    else
+        echo "Setting mysql root password to $MYSQL_ROOT_PASSWORD"
+        /usr/bin/mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
+    fi
+else
+    echo Starting mysql
+    service mysql start
 fi
-echo Starting mysql
-service mysql start
-if [ -n "$MYSQL_ROOT_PASSWORD" ]; then
-    echo "Setting mysql root password to $MYSQL_ROOT_PASSWORD"
-    /usr/bin/mysqladmin -u root --password=root password "$MYSQL_ROOT_PASSWORD"
-fi  
 
 echo ""
 if [ "$@" == "return" ] ; then
