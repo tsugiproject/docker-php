@@ -9,7 +9,7 @@
 # docker image rm tsugi_dev:latest tsugi_mysql:latest tsugi_base:latest
 
 # Pull base image.
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 
 # Install.
 RUN \
@@ -31,15 +31,14 @@ RUN \
   apt-get update && \
   add-apt-repository -y ppa:ondrej/php && \
   add-apt-repository -y ppa:ondrej/apache2 && \
-  add-apt-repository -y ppa:ondrej/mysql-5.6 && \
   add-apt-repository -y ppa:certbot/certbot && \
   apt-get update && \
   apt-get install -y apache2 && \
-  apt-get install -y php7.2 && \
-  apt-get install -y libapache2-mod-php7.2 php7.2-mysql php7.2-curl php7.2-json && \
-  apt-get install -y php7.2-mbstring php7.2-zip php7.2-xml php7.2-gd && \
-  apt-get install -y php7.2-apc && \
-  apt-get install -y php7.2-intl && \
+  apt-get install -y php7.3 && \
+  apt-get install -y libapache2-mod-php7.3 php7.3-mysql php7.3-curl php7.3-json && \
+  apt-get install -y php7.3-mbstring php7.3-zip php7.3-xml php7.3-gd && \
+  apt-get install -y php7.3-apc && \
+  apt-get install -y php7.3-intl && \
   apt-get install -y mysql-client && \
   apt-get install -y nfs-common && \
   a2enmod -q rewrite dir expires headers && \
