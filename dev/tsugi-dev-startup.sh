@@ -2,6 +2,11 @@ echo "Running dev Startup"
 
 bash /usr/local/bin/tsugi-mysql-startup.sh return
 
+COMPLETE=/usr/local/bin/tsugi-dev-complete
+if [ -f "$COMPLETE" ]; then
+    echo "Dev startup already has run"
+else
+
 # sanity check in case Docker went wrong with freshly mounted html folder
 if [ -d "/var/www/html" ] ; then
     echo "Normal case: /var/www/html is a directory";
@@ -90,6 +95,11 @@ cp /usr/bin/git /usr/local/bin/gitx
 chown www-data:www-data /usr/local/bin/gitx
 chmod a+s /usr/local/bin/gitx
 chown -R www-data:www-data /var/www/html/tsugi
+
+# if COMPLETE
+fi
+
+touch $COMPLETE
 
 echo ""
 if [ "$@" == "return" ] ; then

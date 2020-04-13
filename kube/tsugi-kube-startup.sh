@@ -2,6 +2,11 @@ echo "Running Kube Startup"
 
 bash /usr/local/bin/tsugi-base-startup.sh return
 
+COMPLETE=/usr/local/bin/tsugi-kube-complete
+if [ -f "$COMPLETE" ]; then
+    echo "Kube startup already has run"
+else
+
 # This might be a read-write volume from before
 if [ ! -d /var/www/html/tsugi/.git ]; then
   cd /var/www/html/
@@ -29,6 +34,11 @@ if [ -n "$SETUP_GIT" ] ; then
   echo "Enabling git from the browser"
   chmod a+s /usr/local/bin/gitx
 fi
+
+# if COMPLETE
+fi
+
+touch $COMPLETE
 
 echo ""
 if [ "$@" == "return" ] ; then

@@ -2,6 +2,11 @@ echo "Running MySQL Startup"
 
 bash /usr/local/bin/tsugi-base-startup.sh return
 
+COMPLETE=/usr/local/bin/tsugi-mysql-complete
+if [ -f "$COMPLETE" ]; then
+    echo "MySQL startup already has run"
+else
+
 # Mysql
 # sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -26,10 +31,14 @@ if [ ! -f /var/lib/mysql/mysql ]; then
         echo "Setting mysql root password to $MYSQL_ROOT_PASSWORD"
         /usr/bin/mysqladmin -u root --password=root password "$MYSQL_ROOT_PASSWORD"
     fi
-else
-    echo Starting mysql
-    service mysql start
 fi
+
+# COMPLETE
+fi
+touch $COMPLETE
+
+echo Starting mysql
+service mysql start
 
 echo ""
 if [ "$@" == "return" ] ; then

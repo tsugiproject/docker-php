@@ -1,5 +1,10 @@
 echo "Running Base Startup"
 
+COMPLETE=/usr/local/bin/tsugi-base-complete
+if [ -f "$COMPLETE" ]; then
+    echo "Base startup already has run"
+else
+
 # sanity check in case Docker went wrong with freshly mounted html folder
 if [ -d "/var/www/html" ] ; then
     echo "Normal case: /var/www/html is a directory";
@@ -16,6 +21,11 @@ else
         echo "<h1>Test Base Page</h1>" > /var/www/html/index.html
     fi
 fi
+
+# if COMPLETE
+fi
+
+touch $COMPLETE
 
 /usr/sbin/apachectl start
 
