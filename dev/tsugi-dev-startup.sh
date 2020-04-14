@@ -24,22 +24,12 @@ else
     fi
 fi
 
+echo "Installing phpMyAdmin"
 rm -rf /var/www/html/phpMyAdmin
 cd /root
-curl -O https://files.phpmyadmin.net/phpMyAdmin/4.7.9/phpMyAdmin-4.7.9-all-languages.zip
-
-X=`sha256sum phpMyAdmin-4.7.9-all-languages.zip | awk '{print $1}'`
-if [ "$X" == "2fb9f7b31ae7cb71f6398e5da8349fb4f41339386e06a851c4444fc7a938a38a" ]
-then
-  echo "Sha Match"
-  unzip phpMyAdmin-4.7.9-all-languages.zip
-  mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
-else
-  echo "Sha Mis-Match"
-  echo "SHA256 mismatch" >> /tmp/startup-errors
-  exec "$@"
-  exit
-fi
+unzip phpMyAdmin-4.7.9-all-languages.zip
+mv phpMyAdmin-4.7.9-all-languages /var/www/html/phpMyAdmin
+rm phpMyAdmin-4.7.9-all-languages.zip
 
 if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
 ROOT_PASS=root
@@ -65,7 +55,7 @@ if [ ! -d /var/www/html/tsugi/.git ]; then
     git clone https://github.com/tsugicloud/dev-jekyll-site.git site
   fi
   cd site
-  mv .git* * ..
+  mv .git* .hta* * ..
   cd ..
   rm -r site 
 
