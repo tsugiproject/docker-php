@@ -25,6 +25,15 @@ fi
 # if COMPLETE
 fi
 
+if [ ! -z "$APACHE_SERVER_NAME" ]; then
+cat >> /etc/apache2/sites-available/000-default.conf << EOF
+
+ServerName $APACHE_SERVER_NAME
+
+EOF
+
+fi
+
 touch $COMPLETE
 
 /usr/sbin/apachectl start
