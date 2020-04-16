@@ -46,6 +46,30 @@ Cleaning up
     docker container prune
     docker image prune
 
-To built one image
+To build one image
 
     docker build --tag tsugi_base .
+
+To test the ami scripts in a docker container so you can start over and over:
+
+    docker run -p 8080:80 -p 3306:3306 -p 5000:5432 -p 8001:8001 --name ubuntu -dit ubuntu:18.04
+    docker exec -it ubuntu bash
+
+Then in the docker:
+
+    apt-get update
+    apt-get install -y git
+    apt-get install -y vim
+    git config user.name "Charles R. Severance"
+    git config user.email "csev@umich.edu"
+
+    cd /root
+    git clone https://github.com/tsugiproject/docker-php.git
+
+    cd docker-php
+    cp ami-env-dist.sh  ami-env.sh
+
+    bash ami/build.sh 
+    bash ami/start-dev.sh
+
+
