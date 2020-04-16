@@ -52,7 +52,7 @@ To build one image
 
 To test the ami scripts in a docker container so you can start over and over:
 
-    docker run -p 8080:80 -p 3306:3306 -p 5000:5432 -p 8001:8001 --name ubuntu -dit ubuntu:18.04
+    docker run -p 8080:80 -p 3306:3306 --name ubuntu -dit ubuntu:18.04
     docker exec -it ubuntu bash
 
 Then in the docker:
@@ -67,9 +67,11 @@ Then in the docker:
     git clone https://github.com/tsugiproject/docker-php.git
 
     cd docker-php
-    cp ami-env-dist.sh  ami-env.sh
-
     bash ami/build.sh 
-    bash ami/start-dev.sh
+
+This does all of the docker stuff.  Then to bring it up / configure it:
+
+    cp ami-env-dist.sh  ami-env.sh
+    bash /usr/local/bin/tsugi-dev-startup.sh return
 
 
