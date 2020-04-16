@@ -13,4 +13,5 @@ then
     exit
 fi
 
-egrep '^FROM|^COPY|^RUN' < Dockerfile | sed -e 's/^COPY/cp -r/' -e 's/^RUN //' -e 's/FROM/echo FROM/'
+egrep '^FROM|^COPY|^RUN' < Dockerfile | sed -e 's/^COPY/cp -r/' -e 's/^RUN //' -e 's/FROM/echo FROM/' | bash -vx
+
