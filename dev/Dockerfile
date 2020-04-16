@@ -16,8 +16,8 @@ FROM tsugi_mysql:latest
 
 COPY tsugi-dev-startup.sh /usr/local/bin
 
-COPY ./www ./www
-COPY ./phpMyAdmin-4.7.9-all-languages.zip ./phpMyAdmin-4.7.9-all-languages.zip
+COPY ./www /root/www
+COPY ./phpMyAdmin-4.7.9-all-languages.zip /root/phpMyAdmin-4.7.9-all-languages.zip
 
 # Set environment variables.
 ENV HOME /root

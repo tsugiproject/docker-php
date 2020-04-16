@@ -16,6 +16,8 @@ echo ======= Update 2
 apt-get update
 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
+# https://certbot.eff.org/lets-encrypt/ubuntubionic-apache
+add-apt-repository -y universe
 add-apt-repository -y ppa:certbot/certbot
 apt-get update
 apt-get install -y apache2
@@ -26,6 +28,7 @@ apt-get install -y php7.3-apc
 apt-get install -y php7.3-intl
 apt-get install -y mysql-client
 apt-get install -y nfs-common
+apt-get install -y certbot python-certbot-apache
 a2enmod -q rewrite dir expires headers
 phpenmod mysqlnd pdo_mysql intl
 echo ======= Installing Postfix
